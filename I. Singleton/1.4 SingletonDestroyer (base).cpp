@@ -39,7 +39,8 @@ SingletonDestroyer::~SingletonDestroyer() {
 /* при завершенні програми автоматично буде викликаний
 деструктор ~SingletonDestroyer(), який знищить Singleton */
 
-void main() {
+int main() {
 	Singleton *p = &Singleton::getInstance();
 	system("pause");
+	return 0;
 }

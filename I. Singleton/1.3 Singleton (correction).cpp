@@ -62,11 +62,12 @@ void Other_Method() {
 	//p->Print();
 }
 
-void main()
+int main()
 {
 	/* Ручний виклик деструктора може викликати цілий ряд помилок
 	в різних частинах програми, які звертаються до Сінгетона */
 	Method();
 	Other_Method();
 	system("pause");
+	return 0;
 }

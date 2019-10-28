@@ -2,7 +2,7 @@
 #include <fstream>
 using namespace std;
 
-class Singleton;  // опережающее объявление (декларація класу)
+class Singleton; 
 
 class SingletonDestroyer {
 	Singleton *p_instance;
@@ -14,17 +14,16 @@ public:
 class Singleton {
 	static Singleton *p_instance;
 	static SingletonDestroyer destroyer;
+	static ofstream Logfile;
 protected:
-	Singleton() {
-		ofstream Logfile("Logfile.txt", ios::app);
-		Logfile << endl << "create Singleton " << endl;
-		Logfile.close();
+	Singleton() {		
+		Logfile << "create Singleton " << endl;
 	}
-	Singleton(const Singleton&);
-	Singleton &operator=(Singleton&);
+	Singleton(const Singleton&) = delete;
+	Singleton &operator=(Singleton&) = delete;
 	~Singleton() {
-		ofstream Logfile("Logfile.txt", ios::app);
 		Logfile << "delete Singleton " << endl;
+		Logfile << "=================="<< endl;
 		Logfile.close();
 	}
 public:
@@ -36,28 +35,23 @@ public:
 		return *p_instance;
 	}
 
-	void working() {
-		ofstream Logfile("Logfile.txt", ios::app);
-		Logfile << " working... " << endl;
-		Logfile.close();
-	}
+	void working() { Logfile << " working... " << endl;	}
 
 	friend class SingletonDestroyer;
 };
 
-Singleton *Singleton::p_instance = 0;
+ofstream Singleton::Logfile("Logfile.txt", ios::app);
+Singleton *Singleton::p_instance = nullptr;
 SingletonDestroyer Singleton::destroyer;
 
-// якщо не винести вниз, то не спрацює
 SingletonDestroyer::~SingletonDestroyer() {
 	delete p_instance;
 }
-/* при завершенні програми автоматично буде викликаний
-деструктор ~SingletonDestroyer(), який знищить Singleton */
 
-void main() {
+int main() {
 	Singleton *p = &Singleton::getInstance();
 	p->working();
 	p->working();
 	system("pause");
+	return 0;
 }

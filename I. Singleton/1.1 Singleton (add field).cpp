@@ -26,7 +26,7 @@ public:
 на який вказує статичний вказівник */
 Singleton *Singleton::p_instance = new Singleton(14);
 
-void main()
+int main()
 {
 	// отримуємо вказівник на єдиний екземпляр класу
 	Singleton *p = Singleton::getReference();
@@ -40,4 +40,5 @@ void main()
 	// Singleton A; 
 	// Singleton B = *p;
 	system("pause");
+	return 0;
 }

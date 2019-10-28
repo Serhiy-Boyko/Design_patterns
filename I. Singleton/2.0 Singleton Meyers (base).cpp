@@ -19,11 +19,12 @@ public:
 	}
 };
 
-void main() {
+int main() {
 	Singleton *p = &Singleton::getInstance();
 	/* створити екземпляр класу неможливо,
 	бо конструктори закриті або видалені */
 	// Singleton A; 
 	// Singleton B = *p;
 	system("Pause");
+	return 0;
 }

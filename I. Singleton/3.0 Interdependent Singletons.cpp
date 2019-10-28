@@ -27,7 +27,8 @@ public:
 	}
 };
 
-void main() {
-	Singleton2& s = Singleton2::getInstance();
+int main() {
+	Singleton2 &s = Singleton2::getInstance();
 	system("pause");
+	return 0;
 }
