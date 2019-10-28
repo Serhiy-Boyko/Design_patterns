@@ -40,6 +40,7 @@ void Method() {
 	p->Print();
 	// ручний виклик деструктора
 	p->~Singleton();
+	// delete p; // можна і так
 }
 
 void Other_Method() {
