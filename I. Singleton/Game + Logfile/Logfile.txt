@@ -1,0 +1,29 @@
+Start of new game: 
+Castle inside:
+Alex	: Magic
+Borys	: Magic
+
+Forest inside:
+Casima	: Warrior
+Dana	: Warrior
+
+Field inside:
+Egor	: Gnom
+Fedir	: Gnom
+
+--------------------------
+Castle inside:
+Alex	: Magic
+Casima	: Warrior
+
+Forest inside:
+Borys	: Magic
+Fedir	: Gnom
+
+Field inside:
+Dana	: Warrior
+Egor	: Gnom
+
+--------------------------
+End of game 
+==========================
