@@ -2,7 +2,8 @@
 #include "Personage.h"
 #include <list>
 
-/* Реалізація у всіх локацій однакова, але,
+/* Кожна локація - сінглетон.
+Реалізація у всіх локацій однакова, але,
 якщо "гру" потрібно буде розширяти,
 то при такому стартовому коді це буде зручно */
 
@@ -23,9 +24,17 @@ public:
 		inside = approach;
 		approach.clear();
 	}
+	virtual std::string getname() const = 0;
 	virtual void Print_approach() = 0;
 	virtual void Print_inside() = 0;
-	virtual void Save_inside(std::ofstream &f) = 0;
+
+	friend std::ofstream &operator << (std::ofstream &f, const Location *A){
+		f << A->getname() << " inside:" << std::endl;
+		for (auto it : A->inside)
+			f << it;
+		f << std::endl;
+		return f;
+	}
 };
 
 class Castle : public Location {
@@ -36,6 +45,8 @@ class Castle : public Location {
 	Castle &operator=(Castle&) = delete;
 public:
 	static Castle *getInstance() { return p_instance; }
+
+	virtual std::string getname() const { return name; };
 
 	virtual void Print_approach() {
 		std::cout << name << " approach:" << std::endl;
@@ -48,13 +59,6 @@ public:
 		for (auto it : inside)
 			it->Print();
 		std::cout << std::endl;
-	}
-
-	virtual void Save_inside(std::ofstream &f) {
-		f << name << " inside:" << std::endl;
-		for (auto it : inside)
-			it->Save(f);
-		f << std::endl;
 	}
 };
 Castle *Castle::p_instance = new Castle;
@@ -68,6 +72,8 @@ class Forest : public Location {
 public:
 	static Forest *getInstance() { return p_instance; }
 
+	virtual std::string getname() const { return name; };
+
 	virtual void Print_approach() {
 		std::cout << name << " approach:" << std::endl;
 		for (auto it : approach)
@@ -79,12 +85,6 @@ public:
 		for (auto it : inside)
 			it->Print();
 		std::cout << std::endl;
-	}
-	virtual void Save_inside(std::ofstream &f) {
-		f << name << " inside:" << std::endl;
-		for (auto it : inside)
-			it->Save(f);
-		f << std::endl;
 	}
 };
 Forest *Forest::p_instance = new Forest;
@@ -98,6 +98,8 @@ class Field : public Location {
 public:
 	static Field *getInstance() { return p_instance; }
 
+	virtual std::string getname() const { return name; };
+
 	virtual void Print_approach() {
 		std::cout << name << " approach:" << std::endl;
 		for (auto it : approach)
@@ -109,12 +111,6 @@ public:
 		for (auto it : inside)
 			it->Print();
 		std::cout << std::endl;
-	}
-	virtual void Save_inside(std::ofstream &f) {
-		f << name << " inside:" << std::endl;
-		for (auto it : inside)
-			it->Save(f);
-		f << std::endl;
 	}
 };
 Field *Field::p_instance = new Field;

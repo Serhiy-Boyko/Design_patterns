@@ -77,7 +77,7 @@ void Game::PrintAll() {
 
 void Game::SaveAll() {
 	for (auto it : place)
-		it->Save_inside(Game::Logfile);
+		Game::Logfile << it;
 	Game::Logfile << "--------------------------" << std::endl;
 }
 

@@ -12,10 +12,13 @@ class Personage {
 protected:
 	std::string name;
 public:
-	virtual std::string getrace() const = 0;// const { return name; }
+	virtual std::string getrace() const = 0;
 	Personage(std::string n) : name(n) {}
 	virtual void Print() { std::cout << name << std::endl; };
-	virtual void Save(std::ofstream &f) = 0;
+	friend std::ofstream &operator << (std::ofstream &f, const Personage *A) {
+		f << A->name << "\t: " << A->getrace() << std::endl;
+		return f;
+	}
 };
 
 class Magic : public Personage {
@@ -23,10 +26,7 @@ class Magic : public Personage {
 public:
 	virtual std::string getrace() const { return race; }
 	Magic(std::string n) : Personage(n), race("Magic") {}
-	virtual void Print() { std::cout << name << "\t: " << race << std::endl; }
-	virtual void Save(std::ofstream &f) {
-		f << name << "\t: " << race << std::endl;
-	}
+	virtual void Print(){std::cout << name << "\t: " << race << std::endl;}
 };
 
 class Warrior : public Personage {
@@ -34,10 +34,7 @@ class Warrior : public Personage {
 public:
 	virtual std::string getrace() const { return race; }
 	Warrior(std::string n) : Personage(n), race("Warrior") {}
-	virtual void Print() { std::cout << name << "\t: " << race << std::endl; }
-	virtual void Save(std::ofstream &f) {
-		f << name << "\t: " << race << std::endl;
-	}
+	virtual void Print(){std::cout << name << "\t: " << race << std::endl;}
 };
 
 class Gnom : public Personage {
@@ -45,10 +42,7 @@ class Gnom : public Personage {
 public:
 	virtual std::string getrace() const { return race; }
 	Gnom(std::string n) : Personage(n), race("Gnom") {}
-	virtual void Print() { std::cout << name << "\t: " << race << std::endl; }
-	virtual void Save(std::ofstream &f) {
-		f << name << "\t: " << race << std::endl;
-	}
+	virtual void Print(){std::cout << name << "\t: " << race << std::endl;}
 };
 
 enum person { magic = 1, warrior, gnom };
