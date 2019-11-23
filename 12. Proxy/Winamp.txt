@@ -1,0 +1,247 @@
+Winamp 2.80:
+* fixed drag&drop from open file dialog related bugs
+* made CDDB support better handle not-found CDs/lack of CDDB installed.
+* update to CDDB ui (bugfix)
+* new splash screen
+* minibrowser security fix
+* updated winamp agent to support both winamp 2.x and 3.x
+* included PP's hacks for slightly better unicode filename support
+* in_wave support for floating point .WAV files fixed
+* better win9x compatibility for DirectSound
+* waveOut made skip less
+* some in_mod per-file fixes
+* OGG Vorbis support for Standard and Full installs.
+* CD support back in lite installer.
+
+Winamp 2.79:
+* upgraded unzip/decompress support to zlib 1.1.4, for big security fix
+* improved multiple instance detection code/opening many files from explorer issues
+* winamp agent tooltip improvement
+* fix to id3v2+unicode support
+
+Winamp 2.78:
+* minibrowser fixes
+* cddb2 support
+* updates to mod, midi, and wav support (from the wonderful PP)
+
+Winamp 2.77:
+* mb.ini skin support (Winamp/MBOpen)
+* added page and slider for 'shuffle morph rate' to Preferences so you can 
+  control how much the playlist morphs (mutates) each time it cycles 
+  through.
+* PP's ACM disk writer output plug-in instead of the classic one
+* PP's WAV/VOC reader (Which is apparently so much better, but we will see)
+* included new in_midi and in_mod (yay)
+* made playlist editor automatically size down when necessary (on startup)
+* made drag&drop playlist URLs work
+* made alt+delete work again in playlist editor
+* made winamp.exe and winampa.exe both much less likely to fudge HKCR/.
+* fixed drag&drop in vis areas
+* made Winamp handle language packs that lack strings and/or dialogs better
+* made physical file remover ask you for every file, to prevent disasters
+* fixed issues with using a large number of input plug-ins and extensions in 
+  open box (I think)
+* fixed a small "bug" in the id3 editor of in_mp3
+* fixed the frame count bug in id3 editor of in_mp3
+* made general purpose plug-in uninstall capability.
+* new hyper-leet desktop icon on new installs of full version.
+* removed Mjuice support from full version.
+* tinyvis 2001 v2.04
+* AVS includes experimental fullscreen overlay mode.
+
+
+Winamp 2.76:
+* ryan fixed shuffle!
+* christophe added IE URL drag&drop capability
+* faster FFTs for vis on WAV/CDDA playback
+* fixes RealPlayer's .xpl association bug
+* AVS 2.5 (new effects, speedups, smaller presets, etc)
+* TinyVis 2001. Includes fast, highly trippy "Random Intelligent Visualization".
+* Peter's latest and greatest MIDI plug-in
+
+Winamp 2.75:
+* avs 2.4.9 (interface improvements, speedups, new dynamic movement effect (yay!))
+* made skin installing do better renaming (removes [1], etc)
+* some new sample avs presets (thanks to Zen-X and Marco Muraca, Frank Nagel)
+* MASSIVELY optimized directory scanning and removed multi-add bugs
+* fixes to in_mod and in_midi.
+* fixed some NT/2K uninstall issues.
+* updated winamp agent with full color icon
+* temporarily removed in_asfs from full distribution (security issue)
+
+Winamp 2.74:
+* fixed vis shutdown related bugs (message pump is run while waiting for safety)
+* cleaned up some startup code
+* fixed layer 2 i/s bug in in_mp3
+* fixed HTTP/1.1 + Apache CGI issues in in_mp3.
+* improved HTTP auth support in in_mp3
+* updated to new in_midi version (go PP)
+* new AVS with Overlay support
+* made uninstall use NSIS's uninstaller
+
+Winamp 2.73:
+* smaller main winamp.EXE
+* new AVS version with larger interface
+* seeking for HTTP/1.1 streamed MP3 files
+* improved minibrowser functionality
+* updated versions of MOD and MIDI plug-ins (thanks Jake and PP)
+* made out_wm smaller (32k->7k)
+* updated to newer, more efficient installer (1.1o)
+* fixed one cdda related bug
+
+Winamp 2.72:
+* stupid in_mp3 fix (for lame encoded files)
+* updated directmusic/midiOut plug-in (Thanks to Peter Pawlowski)
+* updated mikamp plug-in (Thanks to Jake Stine)
+* made Winamp Agent smaller, use less memory, not interfere with ScanDisk, etc. 
+* fixed some skin related bugs (main.bmp is no longer ever reloaded)
+* fixed cursor bugs - cursors are now loaded all at once (makes for slightly
+  slower skin switching, but should make things more responsive)
+* made zip skin loading more reliable (and slightly slower)
+* small avs updates
+
+Winamp 2.71:
+* new directmusic/midiOut plug-in (PP's)
+* mikmod update (we love you Jake)
+* avs: optimized fullscreen 32bpp->Xbpp (not full support yet)
+       better resizing code, multimonitor support
+       many stability improvements, opts to evaluation compiler
+       new effects, of bugfixes
+       avs minimize modes work right (mostly)
+* in_cdda: reduced plug-in size by 30k.
+* out_wave: made writeall logic better and less problematic
+       altvol mode in no longer fudges with global volume.
+* in_mp3: improved mp3 decoder sync (byte level sync, better checking)
+          fixed id3v2 rare writing bug
+          fixed in_mp3 visualization bug
+          made highest the default text for in_mp3
+* made shuffle not reinit shuffletable on add/remove, it adapts randomly
+* got rid of http:// checking for file retreiving.. http is assumed
+* made tooltips and hotkeys for demand/load/play in preferences
+* made 12k fullscreen visualization plug-in for all installs (woo)
+* fixed F5 redrawing stuff it shouldn't bug
+* fixed moving a file in the playlist and then using shift to select
+* fixed / in IPC issues (i.e. winamp.exe http://url now works all the time)
+* fixed the generic eq slowdown on silence, made more accurate
+* fixed vis plug-in installation issues
+* made workaround for bug in in_mjf.dll
+* a few other fixes I forgot to log
+
+Winamp 2.7:
+  * mp3 decoder: better tag editor, bugfixes
+  * mod decoder: too much to list. much revised. www.divent.org for more info.
+  * much improved CDDA (Faster, less crashy)
+  * waveout output plug-in bug fixes
+  * new directsound output plug-in (very charming)
+  * many optimizations and bugfixes to AVS - this version is quite fast.
+  * faster playlist loading, faster playlist editting on large lists
+  * windowshade visualization now has spectrum analyzer instead of (crappy)
+    VU meter.
+  * improved that old issue of what happens when you delete the playing file 
+    in the playlist.
+  * made credits less problematic (and more time based, less frame based, no more crashing)
+  * made multiple-instance handling handle running with different command lines better
+  * return of classic demo.mp3
+  * sped up exit process some
+  * many other small fixes and refinements
+  * nsis 1.0 installer (http://www.nullsoft.com/free/nsis/ for more info)
+
+Winamp 2.666:
+  * spiffier credits in about box
+  * new mp3 input plug-in
+    * streaming improvements (now much less intrusive)
+    * fully ISO compliant decoding
+    * ID3v2 support
+    * even more
+  * AVS 2.1 . New blitter/movement filtering, MMX optimized, new presets.
+
+Winamp 2.65:
+  * fix to ex-m3u bug/security hole
+  * improved mp3 http streaming dialog (no longer upsets AVS, etc)
+  * optional aol icon in full version
+
+Winamp 2.64:
+  * fix to proxy support for mp3 streaming
+  * dsp plugin fixes
+  * justin can't code
+
+Winamp 2.63:
+  * language pack improvements/cleanups
+  * giant (2000+) skin archive bug fixed
+  * promotional offers on install
+  * streaming improvements (authentification, proxy authentification, dialogless
+    streaming when winamp is not active, content-disposition usage, etc).
+  * minibrowser start page now live if inet connected.
+  * return of out_wm (WMA writer) -- lets you transcode your WAV/MP3/MOD/etc
+    files into WMA!
+
+Winamp 2.62:
+  * Generic dialog processing message loop so now TAB/etc... works in plugins dialog windows
+  * Fix to Mjuice (memory leak that caused the full install to puke after many hours)
+  * Winamp Visualization Studio updates.
+  * Installer bitmap updates
+  * Installer terminology changes
+
+Winamp 2.61:
+  * In accordance with Microsoft's license agreement, we no longer allow you to 
+	use DSP plug-ins or alternate output plug-ins when playing WMA files. 
+  * Installation now gives you more options, cleaner.
+  * Some mixed block DCT and Antialiasing fixes to Nitrane.
+  * Support for .wsz files in your skin directory as well as .zip files.
+  * Fixed: gdi leak when switching skins
+  * Fixed: gdi object leak when using Winamp systray icon
+  * AVS 1.5a6 (coming soon, 1.50)
+  * fixed: make the mouseover on install listbox not, err, mess up at weird screen locations
+  * fixed: the install screen that comes up always when no net connect available.
+  * fixed: bookmarking from explorer should be less nasty
+  * updated: uninstall should be more reliable
+  * attempted fix: bookmark add/prefs display corruption bug
+
+Winamp 2.6:
+  * Massively improved CD audio support complete with menu option to play CD
+  * New splash screen (smaller) and about box effect.
+  * Removed unused links stuff in about box
+  * Improved Jump (to file) dialog (hit the J key)
+  * Bookmarking system
+  * Fix to mp3 plug-in. Now won't stop after failed shoutcast stream.
+  * Updates to URLs used in player for web site integration
+  * Winamp Agent (can monitor file types, and restore them)
+  * Better Netscape/IE integration
+  * Updated MJuice code
+  * Updated AudioSoft code
+  * Uninstall icon in start menu now has own icon
+  * New SuperPiMP installation system
+
+Winamp 2.5d:
+  * New MJuice code
+  * Cleaned up CDDA plug-in and fixed a few bugs
+
+Winamp 2.5c:
+  * Full version has MJF support
+  * Fixed icon assignment bug
+  * Added option for old-school playlist editor buttons
+  * Fixes EQ volume setting bug
+  * Removed playlist editor child options
+  * Vastly improved window stack positioning code
+  * Fixed some rare and strange docking bugs
+
+Winamp 2.50:
+  * Winamp is now freeware! Thanks to all who have previously 
+    registered, your support is really appreciated!
+  * Skin selection menu in main menu, browser in preferences
+  * Builtin visualization settings are now in preferences
+  * Two streaming-related bugfixes to in_mp3.dll
+  * Added streamed-file saving to in_mp3.dll (no shoutcast saving, sorry)
+  * Added extended-M3U/PLS support (files include title and length info)
+  * Improved in_mp3.dll's frame sync code
+  * Better multi-byte character set support
+  * Numerous playlist editor bugfixes, and refinements
+  * Fixed some default skin images
+  * Fixed some leak and GDI issues (thanks, BoundsChecker)
+  * Fixed some leaks in in_cdda.dll
+  * Restructured some internals of Winamp for bitrate reporting for speed
+  * Added recent stream list to open location box
+  * Automatic IE integration for SHOUTcast
+  * Fixed a bug in out_wave.dll
+  * Updated AudioSoft plug-in
+  * Final WMA support for full version
