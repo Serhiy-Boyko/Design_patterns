@@ -3,16 +3,39 @@
 #include <vector>
 #include <time.h>
 #include <cassert>
+#include <Windows.h>
 
 // Memento
 class Memento {
 	size_t count_of_symbols;
 	size_t count_of_image;
 	size_t count_of_video;
-	struct tm *ts;
+	tm *ts;
 public:
-	Memento(size_t s, size_t i, size_t v, tm *t) : count_of_symbols(s), 
-		count_of_image(i), count_of_video(v), ts(t) {}
+	Memento(size_t s, size_t i, size_t v, tm *t) 
+		: count_of_symbols(s), count_of_image(i), count_of_video(v)
+	{
+		ts = new tm;
+		ts->tm_year = t->tm_year + 1900;
+		ts->tm_mon = t->tm_mon+1;
+		ts->tm_mday = t->tm_mday;
+		ts->tm_hour = t->tm_hour;
+		ts->tm_min = t->tm_min;
+		ts->tm_sec = t->tm_sec;
+	}
+
+	Memento(const Memento &M) {
+		count_of_symbols = M.count_of_symbols;
+		count_of_image = M.count_of_image;
+		count_of_video = M.count_of_video;
+		ts = new tm;
+		ts->tm_year = M.ts->tm_year;
+		ts->tm_mon = M.ts->tm_mon;
+		ts->tm_mday = M.ts->tm_mday;
+		ts->tm_hour = M.ts->tm_hour;
+		ts->tm_min = M.ts->tm_min;
+		ts->tm_sec = M.ts->tm_sec;
+	}
 
 	size_t getSymbols() { return count_of_symbols; }
 	size_t getImages() { return count_of_image; }
@@ -30,7 +53,7 @@ public:
 		std::cout << " Video: " << count_of_video << std::endl;
 	}
 
-	~Memento() {}
+	~Memento() { delete ts; }
 };
 
 // Originator
@@ -40,11 +63,11 @@ class Document {
 	size_t count_of_video;
 public:
 	Document() : count_of_symbols(0), count_of_image(0), count_of_video(0) {
-		std::cout << "Create new document: " << std::endl;
+		std::cout << "Create new document... " << std::endl;
 	}
 
 	void Print() {
-		std::cout << "Printing of current document: " << '\n';
+		std::cout << "Printing of current document... " << std::endl;
 		std::cout << "   Symbols: " << count_of_symbols << std::endl;
 		std::cout << "    Images: " << count_of_image << std::endl;
 		std::cout << "     Video: " << count_of_video << std::endl;
@@ -67,16 +90,16 @@ public:
 
 	// збереження стану
 	Memento SaveDocument() {
-		std::cout << "Save document: " << std::endl;
+		std::cout << "Save document... " << std::endl;
 		time_t t = time(NULL);
-		struct tm *ts = localtime(&t);
+		tm *ts = localtime(&t);
 		return Memento({ count_of_symbols, count_of_image, 
 			count_of_video, ts });
 	}
 
 	// відновлення стану
 	void RestoreDocument(Memento memento) {
-		std::cout << "Restore document: " << std::endl;
+		std::cout << "Restore document... " << std::endl;
 		count_of_symbols = memento.getSymbols();
 		count_of_image = memento.getImages();
 		count_of_video = memento.getVideo();
@@ -99,10 +122,10 @@ public:
 	}
 
 	void Print() {
-		std::cout << "-------------- History ------------" << std::endl;
+		std::cout << "------------------- History ------------------\n";
 		for (auto m : History)
 			m.Print();
-		std::cout << "-----------------------------------" << std::endl;
+		std::cout << "----------------------------------------------\n";
 	};
 
 	~DocHistory() {}
@@ -118,6 +141,7 @@ int main()
 	doc.AddImage();
 	doc.Print();
 	dochistory.push(doc.SaveDocument());
+	Sleep(1000);
 
 	doc.AddText(200);
 	doc.AddImage();
@@ -125,6 +149,7 @@ int main()
 	doc.AddVideo();
 	doc.Print();
 	dochistory.push(doc.SaveDocument());
+	Sleep(1000);
 
 	doc.AddText(300);
 	doc.AddVideo();
