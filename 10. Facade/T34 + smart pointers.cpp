@@ -55,7 +55,7 @@ public:
 			speed = num * 8;
 		else
 			speed = 32;
-		std::cout << " speed: " << speed << std::endl;
+		std::cout << " Speed: " << speed << std::endl;
 		return speed;
 	}
 };
@@ -67,7 +67,7 @@ public:
 			speed = num * 10;
 		else
 			speed = 40;
-		std::cout << " speed: " << speed << std::endl;
+		std::cout << " Speed: " << speed << std::endl;
 		return speed;
 	}
 };
@@ -87,7 +87,7 @@ public:
 	virtual int Time(int count) {
 		count_of_shot += count;
 		int time = count * 60 / shots_per_min;
-		std::cout << " time for shots: " << time << std::endl;
+		std::cout << " Time for shots: " << time << std::endl;
 		return time;
 	}
 };
@@ -99,21 +99,25 @@ public:
 	virtual int Time(int count) {
 		count_of_shot += count;
 		int time = count * 60 / shots_per_min;
-		std::cout << " time for shots: " << time << std::endl;
+		std::cout << " Time for shots: " << time << std::endl;
 		return time;
 	}
 };
 int F34::shots_per_min = 5;
 
 // -----------------------------------------------------------------
+typedef std::unique_ptr <Engine> engine;
+typedef std::unique_ptr <Radio> radio;
+typedef std::unique_ptr <Cannon> cannon;
+
 class T34 {
-	Engine *En;
-	Radio *Ra;
-	Cannon *Ca;
+	engine En;
+	radio Ra;
+	cannon Ca;
 	int numgear;
 public:
-	T34(Engine *en, Radio *ra, Cannon *ca) : 
-		En(en), Ra(ra), Ca(ca), numgear(0) {}
+	T34(engine en, radio ra, cannon ca) :
+		En(std::move(en)), Ra(std::move(ra)), Ca(std::move(ca)), numgear(0) {}
 
 	// З точки зору управління, це фасад для модулів
 	void Fast() { if (numgear < 5) En->Clutch(++numgear); }
@@ -127,35 +131,36 @@ public:
 
 class FacadeCreateT34 {
 public:
-	static T34 &create40() {
-		T34 Tank(new B2, new P9, new Zis34);
+	static std::unique_ptr <T34> create40() {
+		std::unique_ptr <T34> Tank(new T34(engine(new B2), radio(new P9), 
+			cannon(new Zis34)));
 		return Tank;
 	}
 
-	static T34 &create42() {
-		T34 Tank(new B234, new PM9, new F34);
+	static std::unique_ptr <T34> create42() {
+		std::unique_ptr <T34> Tank(new T34(engine(new B234), radio(new PM9), 
+			cannon(new F34)));
 		return Tank;
 	}
 };
 
 int main()
 {
-	T34 N317 = FacadeCreateT34::create40();
-	// T34 N317(new B2, new P9, new Zis34);
-	N317.Fast();
-	N317.Fast();
-	N317.Fast();
-	N317.Go();
-	N317.Slowly();
-	N317.Slowly();
-	N317.Slowly();
-	N317.Shot(5);
+	std::unique_ptr <T34> N317 = move(FacadeCreateT34::create40());
+	N317->Fast();
+	N317->Fast();
+	N317->Fast();
+	N317->Go();
+	N317->Slowly();
+	N317->Slowly();
+	N317->Slowly();
+	N317->Shot(5); // виконати 5 пострілів
+	std::cout << std::endl;
 
-	// T34 N318(new B234, new PM9, new F34);
-	T34 N318 = FacadeCreateT34::create42();
-	N318.Talk(4000);
-	N318.Talk(14000);
-	N318.Shot(6);
+	std::unique_ptr <T34> N318 = move(FacadeCreateT34::create42());
+	N318->Talk(4000);
+	N318->Talk(14000);
+	N318->Shot(6);
 	system("Pause");
 	return 0;
 }
