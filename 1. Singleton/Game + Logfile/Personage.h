@@ -12,9 +12,9 @@ class Personage {
 protected:
 	std::string name;
 public:
-	virtual std::string getrace() const = 0;
-	Personage(std::string n) : name(n) {}
-	virtual void Print() { std::cout << name << std::endl; };
+	virtual const std::string &getrace() const = 0;
+	Personage(const std::string &n) : name(n) {}
+	virtual void Print() const { std::cout << name << std::endl; };
 	friend std::ofstream &operator << (std::ofstream &f, const Personage *A) {
 		f << A->name << "\t: " << A->getrace() << std::endl;
 		return f;
@@ -24,30 +24,36 @@ public:
 class Magic : public Personage {
 	std::string race;
 public:
-	virtual std::string getrace() const { return race; }
-	Magic(std::string n) : Personage(n), race("Magic") {}
-	virtual void Print(){std::cout << name << "\t: " << race << std::endl;}
+	virtual const std::string &getrace() const { return race; }
+	Magic(const std::string &n) : Personage(n), race("Magic") {}
+	
+	virtual void Print()const override 
+	{ std::cout << name << "\t: " << race << std::endl;}
 };
 
 class Warrior : public Personage {
 	std::string race;
 public:
-	virtual std::string getrace() const { return race; }
-	Warrior(std::string n) : Personage(n), race("Warrior") {}
-	virtual void Print(){std::cout << name << "\t: " << race << std::endl;}
+	virtual const std::string &getrace() const { return race; }
+	Warrior(const std::string &n) : Personage(n), race("Warrior") {}
+	
+	virtual void Print()const override 
+	{ std::cout << name << "\t: " << race << std::endl;}
 };
 
 class Gnom : public Personage {
 	std::string race;
 public:
-	virtual std::string getrace() const { return race; }
-	Gnom(std::string n) : Personage(n), race("Gnom") {}
-	virtual void Print(){std::cout << name << "\t: " << race << std::endl;}
+	virtual const std::string &getrace() const { return race; }
+	Gnom(const std::string &n) : Personage(n), race("Gnom") {}
+	
+	virtual void Print()const override 
+	{ std::cout << name << "\t: " << race << std::endl;}
 };
 
 enum person { magic = 1, warrior, gnom };
 
-Personage *Factory(person num, std::string name) {
+Personage *Factory(person num, const std::string &name) {
 	switch (num)
 	{
 	case magic: return new Magic(name); break;

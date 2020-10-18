@@ -6,7 +6,7 @@ int main()
 	srand(time(0));
 	// ініціалізуємо тут, інакше дестроєр не спрацює
 	Game *mygame = &Game::getInstance();
-	mygame->Init();
+	mygame->Init(); // активізуємо 6 гравців (по 2 на локацію)
 	mygame->Accept_all_visitors();
 	mygame->PrintAll();
 	mygame->SaveAll();

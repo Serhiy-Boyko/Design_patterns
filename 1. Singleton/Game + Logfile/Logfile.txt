@@ -13,16 +13,16 @@ Fedir	: Gnom
 
 --------------------------
 Castle inside:
-Dana	: Warrior
+Alex	: Magic
 Egor	: Gnom
+Fedir	: Gnom
 
 Forest inside:
-Alex	: Magic
-Casima	: Warrior
+Borys	: Magic
 
 Field inside:
-Borys	: Magic
-Fedir	: Gnom
+Casima	: Warrior
+Dana	: Warrior
 
 --------------------------
 End of game 

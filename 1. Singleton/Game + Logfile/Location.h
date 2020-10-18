@@ -19,18 +19,18 @@ public:
 		inside.pop_front();
 		return p;
 	}
+
 	void Add_visitor(Personage *A) { approach.push_back(A); }
-	void Accept_visitors() {
-		inside = approach;
-		approach.clear();
-	}
-	virtual std::string getname() const = 0;
-	virtual void Print_approach() = 0;
-	virtual void Print_inside() = 0;
+
+	void Accept_visitors() { inside = std::move(approach); }
+
+	virtual const std::string &getname() const = 0;
+	virtual void Print_approach() const = 0;
+	virtual void Print_inside() const = 0;
 
 	friend std::ofstream &operator << (std::ofstream &f, const Location *A){
 		f << A->getname() << " inside:" << std::endl;
-		for (auto it : A->inside)
+		for (auto &it : A->inside)
 			f << it;
 		f << std::endl;
 		return f;
@@ -46,17 +46,17 @@ class Castle : public Location {
 public:
 	static Castle *getInstance() { return p_instance; }
 
-	virtual std::string getname() const { return name; };
+	virtual const std::string &getname() const override { return name; };
 
-	virtual void Print_approach() {
+	virtual void Print_approach() const {
 		std::cout << name << " approach:" << std::endl;
-		for (auto it : approach)
+		for (auto &it : approach)
 			it->Print();
 		std::cout << std::endl;
 	}
-	virtual void Print_inside() {
+	virtual void Print_inside() const {
 		std::cout << name << " inside:" << std::endl;
-		for (auto it : inside)
+		for (auto &it : inside)
 			it->Print();
 		std::cout << std::endl;
 	}
@@ -72,17 +72,17 @@ class Forest : public Location {
 public:
 	static Forest *getInstance() { return p_instance; }
 
-	virtual std::string getname() const { return name; };
+	virtual const std::string &getname() const override { return name; };
 
-	virtual void Print_approach() {
+	virtual void Print_approach() const {
 		std::cout << name << " approach:" << std::endl;
-		for (auto it : approach)
+		for (auto &it : approach)
 			it->Print();
 		std::cout << std::endl;
 	}
-	virtual void Print_inside() {
+	virtual void Print_inside() const {
 		std::cout << name << " inside:" << std::endl;
-		for (auto it : inside)
+		for (auto &it : inside)
 			it->Print();
 		std::cout << std::endl;
 	}
@@ -98,17 +98,17 @@ class Field : public Location {
 public:
 	static Field *getInstance() { return p_instance; }
 
-	virtual std::string getname() const { return name; };
+	virtual const std::string &getname() const override { return name; };
 
-	virtual void Print_approach() {
+	virtual void Print_approach() const {
 		std::cout << name << " approach:" << std::endl;
-		for (auto it : approach)
+		for (auto &it : approach)
 			it->Print();
 		std::cout << std::endl;
 	}
-	virtual void Print_inside() {
+	virtual void Print_inside() const {
 		std::cout << name << " inside:" << std::endl;
-		for (auto it : inside)
+		for (auto &it : inside)
 			it->Print();
 		std::cout << std::endl;
 	}

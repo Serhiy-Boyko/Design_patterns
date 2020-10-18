@@ -65,18 +65,18 @@ void Game::Init() {
 }
 
 void Game::Accept_all_visitors() {
-	for (auto it : place)
+	for (auto &it : place)
 		it->Accept_visitors();
 }
 
 void Game::PrintAll() {
-	for (auto it : place)
+	for (auto &it : place)
 		it->Print_inside();
 	std::cout << "--------------------------" << std::endl;
 }
 
 void Game::SaveAll() {
-	for (auto it : place)
+	for (auto &it : place)
 		Game::Logfile << it;
 	Game::Logfile << "--------------------------" << std::endl;
 }
