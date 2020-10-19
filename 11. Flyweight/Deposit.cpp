@@ -3,7 +3,9 @@
 #include <vector>
 #include <time.h>
 
-/* Банк пропонує клієнтам покласти кошти на депозит. Клієнт може вибрати одну з кількох пропозицій, кожна з яких містить стандартні умови. */
+/* Банк пропонує клієнтам покласти кошти на депозит. 
+Клієнт може вибрати одну з кількох пропозицій, 
+кожна з яких містить стандартні умови. */
 
 struct Condition
 {
@@ -12,23 +14,23 @@ struct Condition
 	size_t count; // кількість угод на даних умовах
 };
 
-class Pool_of_conditions { 
+class Pool_of_conditions {
 	std::vector<Condition> conds_pool;
 public:
-	void AddNewCondition(std::string text_cond) {
+	void AddNewCondition(const std::string &text_cond) {
 		for (auto &i : conds_pool)
 			if (i.text == text_cond)
 				i.active = true;
 		conds_pool.push_back({ text_cond, true, 0 });
 	}
 
-	void make_inactive_Condition(std::string text_cond) {
-		for (auto i : conds_pool)
+	void make_inactive_Condition(const std::string &text_cond) {
+		for (auto &i : conds_pool)
 			if (i.text == text_cond)
 				i.active = false;
 	}
 
-	int Find_Condition(std::string text_cond) {
+	int Find_Condition(const std::string &text_cond) {
 		for (size_t i = 0; i < conds_pool.size(); i++)
 			if (conds_pool[i].text == text_cond)
 				return i;
@@ -36,8 +38,8 @@ public:
 	}
 
 	int check_Condition(int index) { return conds_pool[index].active; }
-	std::string getText(int index) { return conds_pool[index].text; }
-	std::string operator[](int index) { return conds_pool[index].text; }
+	const std::string &getText(int index) { return conds_pool[index].text; }
+	const std::string &operator[](int index) { return conds_pool[index].text; }
 	void inc(int index) { conds_pool[index].count++; }
 	void dec(int index) { conds_pool[index].count--; }
 
@@ -52,13 +54,16 @@ class Deposit {
 	int number; // conditions[number];
 public:
 	Deposit() : name(""), suma(0), date(""), number(0) {}
-	Deposit(std::string n, int s, std::string d, int num)
-		: name(n), suma(s), date(d), number(num) {}
+	Deposit(std::string &n, int s, std::string &d, int num)
+		: suma(s), number(num) {
+		name = move(n);
+		date = move(d);
+	}
 
-	void Set(std::string n, int s, std::string d, int num) {
-		name = n;
+	void Set(std::string &n, int s, std::string &d, int num) {
+		name = move(n);
 		suma = s;
-		date = d;
+		date = move(d);
 		number = num;
 	}
 
@@ -101,7 +106,7 @@ int main()
 		base.push_back(
 			{ names[i], 100 + rand() % 1000, dates[i], rand() % cnt });
 
-	for (auto i : base)
+	for (auto &i : base)
 		i.Print();
 
 	system("Pause");
